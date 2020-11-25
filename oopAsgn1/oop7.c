@@ -2,7 +2,8 @@
 #include<stdlib.h>
 #include<string.h>
 
-
+//below a linked list approach is taken to store the name, class, roll of students in a list
+//defining the structure student
 struct student {
 	int roll, score;
 	char name[100];
@@ -22,7 +23,7 @@ ss getNewStudent(int roll, char *name, int score) {
 	return s1;
 }
 
-//adding a new student
+//adding a new student into the list
 ss add(ss head) {
 	int roll, score; char name[100];
 
@@ -44,20 +45,20 @@ ss add(ss head) {
 	return head;
 }
 
-//deleting a new student
+//deleting a student based on roll number
 ss delete_record(ss head) {
 	int roll;
 	printf("Enter the roll of the student to be deleted -- ");
 	scanf("%d", &roll);
 
-	if (head == NULL)
+	if (head == NULL)	//no record is present 
 	{
 		/* code */
 		printf("Recorded to be deleted not found -- \n");
 		return head;
 	}
 	else {
-		if (head->roll == roll) {
+		if (head->roll == roll) {	// the element to be deleted is the first element of the list
 			ss s = head;
 			head = head->next;
 			free(s);
@@ -65,7 +66,7 @@ ss delete_record(ss head) {
 		else {
 			ss curr = head;
 			int flag = 0;
-			while (curr->next != NULL) {
+			while (curr->next != NULL) {	//searching for the elemented to be deleted
 				if (((curr->next)->roll) == roll)
 				{
 					flag = 1;
@@ -75,7 +76,7 @@ ss delete_record(ss head) {
 			}
 			//printf("%d", flag);
 			if (flag == 0) {
-				if (curr->roll == roll) {
+				if (curr->roll == roll) //deletion part
 					free(curr);
 					printf("Record deleted successfully -- \n");
 					return head;
@@ -105,17 +106,18 @@ void printList(ss head) {
 		ss curr = head;
 		printf("Name     Roll    Score\n");
 		printf("-----------------------------------------\n");
-		while (curr != NULL) {
+		while (curr != NULL) { //traversing the list to print the records
 			printf("%s %d %d\n", curr->name, curr->roll, curr->score);
 			curr = curr->next;
 		}
 	}
 }
 
-
+//a driver function implmemented to utilise the above defined structure and relevant function
 int main() {
 	ss head = NULL;
-
+	
+	//to test the add function
 	head = add(head);
 	head = add(head);
 	head = add(head);

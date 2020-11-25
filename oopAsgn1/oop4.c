@@ -8,8 +8,6 @@ void acceptDimension(int *n, int *m) {
 	scanf("%d %d", n, m);
 }
 
-int (*arr)[c];
-int *arr[r];
 
 //function to accept the two dimensional array of variable length
 int** inputMatrix(int n, int m) {

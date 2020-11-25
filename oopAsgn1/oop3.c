@@ -29,7 +29,7 @@ void arrayOfPointers(int n, int m) {
 int (*pointerToArray(int n, int m)) []  {
 
 	int (*p)[5];
-	
+
 
 	int arr[5][5];
 	for (int i = 0; i < n; i++) {
@@ -49,15 +49,17 @@ int main() {
 	scanf("%d %d", &n, &m);
 
 	//call to array of pointers
-	//arrayOfPointers(n, m);
+	arrayOfPointers(n, m);
 
 	//call to the pointerToArray function
 	int (*p)[5] = pointerToArray(n, m);
 
-	printf("Entered elements are --> ");
+	printf("Entered elements are )pointer to array format)--> ");
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++)
 			printf("%d ", *(*(p + i) + j));
 
-		return 0;
+
 	}
+	return 0;
+}

@@ -29,7 +29,7 @@ void acceptDetails(int n, struct person* p)
 	for (int i = 0; i < n; i++) {
 		char name[100];
 		printf("Enter the name %d -- ", i + 1);
-		scanf("%s", name);
+		scanf(" %[^\n]s", name);
 		strcpy(p[i].name, name);
 		printf("Enter the age %d -- ", i + 1);
 		scanf("%d", &p[i].age);
@@ -42,7 +42,7 @@ void sortByAge(int n, struct person* p) {
 }
 
 void printData(struct person* p, int n) {
-	printf("The list generated after sorting on the basis of age");
+	printf("The list generated after sorting on the basis of age ---------------------\n");
 	for (int i = 0; i < n; i++) {
 		printf("%d. %s %d\n", i + 1, p[i].name, p[i].age);
 	}

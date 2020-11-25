@@ -13,8 +13,10 @@ void numberOfPersons(int *n) {
 void names_and_ageOfPersons(int n, char** names, int* arr) {
 
 	for (int i = 0; i < n; i++) {
-		printf("Enter the name and age of the %d person --> ", i + 1);
-		scanf("%s %d", names[i], (arr + i));
+		printf("Enter the name of %d person --> ", i + 1);
+		scanf(" %[^\n]s", names[i]);
+		printf("Enter the age of the %d person --> ", i + 1);
+		scanf("%d", &arr[i]);
 	}
 }
 
@@ -47,7 +49,7 @@ int main() {
 	int n;
 	numberOfPersons(&n);
 
-	
+
 
 	char **names = (char**)malloc(n * sizeof(char*));
 	int *age     = (int *)malloc(n * sizeof(int));
