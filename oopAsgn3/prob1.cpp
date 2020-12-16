@@ -12,7 +12,8 @@ int main() {
 	cout << max(a, b);
 
 	//usage of max macro on char* types variable
-	char word1[30], word2[20];
+	char word1[20];
+	char word2[30];
 	cout << "Enter Two Words : ";
 	cin >> word1 >> word2;
 	cout << max(word1, word2);
@@ -21,4 +22,4 @@ int main() {
 }
 
 //while applying the macro on integer variable it returns the correct ouput while on applying
-//it on char* type argument it always returns the first word entered.
+//it on char* type argument it always returns the second word entered.

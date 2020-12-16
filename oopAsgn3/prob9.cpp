@@ -8,6 +8,10 @@ private :
 	int hour, min, sec, type;
 	string suff;
 public :
+	//constructor
+	TIME() {
+		suff = "na";
+	}
 	//function to load the data
 	void loadData() {
 		int type;
@@ -53,22 +57,12 @@ public :
 					min = extra;
 				}
 			}
-
-			if (hour < 12)
-				suff = "am";
-			else {
-				if (hour % 12 == 0)
-					hour = 12;
-				else
-					hour = (hour % 12) + 1;
-				suff = "pm";
-			}
 		}
 	}
 
 	//function to show the data
 	void showData() {
-		if (type == 1) {
+		if (suff == "na") {
 			cout << "Your entered time is :- " << hour << ":" << min << ":" << sec << "\n";
 		}
 		else {
@@ -80,14 +74,65 @@ public :
 	void addMinute();
 };
 
-//function declared
+//function declared to add extra minutes
 void TIME::addMinute() {
-
+	if(suff == "na"){
+		if(hour == 24){
+			cout << "Sorry minutes cannot be added !";
+			return;
+		}
+		else{
+			int m;
+			cout << "Enter the minutes you wish to add :- ";
+			cin >> m;
+			int h = m / 60;
+			m -= (h * 60);
+			if(hour + h > 24){
+				cout << "Sorry minutes addition not feasible !";
+				return;
+			}
+			else if(hour + h == 24 && (m > 0 || sec > 0)){
+				cout << "Sorry minutes addition not feasible !";
+				return;
+			}
+			else{ 
+				hour += h;
+				min += m;
+			}
+		}
+	}
+	else {
+		if(hour == 12){
+			cout << "Sorry minutes cannot be added !";
+			return;
+		}
+		else{
+			int m;
+			cout << "Enter the minutes you wish to add :- ";
+			cin >> m;
+			int h = m / 60;
+			m -= (h * 60);
+			if(hour + h > 12){
+				cout << "Sorry minutes addition not feasible !";
+				return;
+			}
+			else if(hour + h == 12 && (m > 0 || sec > 0)){
+				cout << "Sorry minutes addition not feasible !";
+				return;
+			}
+			else{ 
+				hour += h;
+				min += m;
+			}
+		}
+	}
 }
 
 int main() {
 	TIME t1;
 	t1.loadData();
+	t1.showData();
+	t1.addMinute();
 	t1.showData();
 	return 0;
 }

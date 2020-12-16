@@ -26,13 +26,13 @@ void stack::push() {
 
 	//stack overflow condition
 	if (top == MAX_SIZE - 1) {
-		cout << "Stack Overflow ! Can't perform push operation";
+		cout << "Stack Overflow ! Can't perform push operation\n";
 		return;
 	}
 	else {
 		//top incremented and element inserted
 		arr[++top] = ele;
-		cout << "Element pushed successfully";
+		cout << "Element pushed successfully\n";
 	}
 }
 
@@ -40,14 +40,14 @@ void stack::push() {
 void stack::pop() {
 	//stack underlow condition
 	if (top == -1) {
-		cout << "Stack underflow ! element cannot be popped";
+		cout << "Stack underflow ! element cannot be popped\n";
 		return;
 	}
 	else {
 		//top element popped out of the stack (LIFO)
 		int x = arr[top];
 		top--;
-		cout << "The top element " << x << " popped successfully";
+		cout << "The top element " << x << " popped successfully\n";
 	}
 }
 
@@ -55,7 +55,7 @@ void stack::pop() {
 void stack::viewStack() {
 	//stack underflow cond
 	if (top == -1) {
-		cout << "Stack underflow! no elements to display";
+		cout << "Stack underflow! no elements to display\n";
 		return;
 	}
 	else {

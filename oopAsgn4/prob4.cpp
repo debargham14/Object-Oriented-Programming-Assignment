@@ -18,6 +18,16 @@ public:
 			for (int i = 0; i < size; i++)	p[i] = 0;
 		}
 	}
+	//defining the copy constructor
+	ARRAY(const ARRAY& a) {
+		size = a.size;
+		if (size == 0)
+			p = NULL;
+		else {
+			p = new int[size]; //creating a new array
+			for (int i = 0; i < size; i++)	p[i] = a.p[i];
+		}
+	}
 
 	//copy constructor to copy an array
 	ARRAY(int *arr, int n) {
@@ -25,12 +35,13 @@ public:
 		if (size == 0)
 			p = NULL;
 		else {
+			p = new int[size]; //creating a new array
 			for (int i = 0; i < n; i++)	p[i] = arr[i];
 		}
 	}
 
 	//overloading the >> to take the array as input
-	friend void operator >> (istream &is, ARRAY a) {
+	friend void operator >> (istream &is, ARRAY& a) {
 		for (int i = 0; i < a.size; i++)	is >> a.p[i];
 	}
 
@@ -67,7 +78,7 @@ public:
 		return c;
 	}
 
-	//operator overloading for []
+	//operator overloading for [] so that array can be accessed as a[idx] for array being an object of the array class
 	int& operator [] (int idx) {
 		return p[idx];
 	}
@@ -83,20 +94,34 @@ public:
 		for (int i = 0; i < a.size; i++)	c.p[i] = a.p[i] * x;
 		return c;
 	}
+
+	//destructor is used to set the memory free
+	~ARRAY() {
+		delete[] p;
+	}
 };
 
 //driver code to implment the above class
 int main() {
-	ARRAY a(3), b;	//initialising the array using copy constructor
+	int n;
+	cout << "Enter the number of elements of the array :- ";
+	cin >> n;
+	ARRAY a(n), b;	//initialising the array using copy constructor
+	cout << "Enter the array :- ";
 	cin >> a;	//taking input of an array
+	cout << "Your Entered Array is :- ";
 	cout << a << "\n";	//displaying the array
 	b = a; //copying an array bytewise
+	cout << "A check to the copy function :- ";
 	cout << b << "\n";
 
 	ARRAY c = a + b; //adding the contents of two array
+	c[0] = 1000; // check the [] operator in the ARRAY
+	cout << "A check to the add function :- ";
 	cout << c << "\n";
 
 	ARRAY d = 5 * c; //multiplying the content of array with constant variable
+	cout << "A check to the multiply function :- ";
 	cout << d << "\n";
 	return 0;
 }

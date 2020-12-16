@@ -29,10 +29,10 @@ int main() {
 	types ty('a', 5, 10.12, d);
 
 	//testing f(int) and f(float)
-	// f(ty.ch);
-	// f(ty.in);
-	// f(ty.fl);
-	f(ty.dou);
+	f(ty.ch);
+	f(ty.in);
+	f(ty.fl);
+	//f(ty.dou); // causes ambiguity
 	return 0;
 }
 

@@ -29,6 +29,5 @@ int main() {
 	s1.showData();
 
 	modifyScore(s1);
-	//cout << "The roll and modified score is :- " << s1.roll << " " << s1.score << "\n";
 	return 0;
 }

@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-class linkedList;
+class linkedList; //format declaration
 
 //defining class node with single data member and a self referencial pointer
 class Node {

@@ -76,7 +76,7 @@ ss delete_record(ss head) {
 			}
 			//printf("%d", flag);
 			if (flag == 0) {
-				if (curr->roll == roll) //deletion part
+				if (curr->roll == roll){ //deletion part
 					free(curr);
 					printf("Record deleted successfully -- \n");
 					return head;
