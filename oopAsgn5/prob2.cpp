@@ -148,6 +148,7 @@ protected:
     int bookId;
     char bookName[31];
     char author[31];
+    char publisher[31];
 public:
     void getData(int id) { //designing the class getData() to accept book details
         bookId = id;
@@ -155,11 +156,14 @@ public:
         scanf(" %[^\n]s", bookName);
         cout << "Enter the author's Name :- ";
         scanf(" %[^\n]s", author);
+        cout << "Enter the publisher's name :- ";
+        scanf(" %[^\n]s", publisher);
     }
-    void showData() { //designing the class showData to show the book details
+    void showData() { //designing the method  showData to show the book details
         cout << "Name of the Book :- " << bookName << "\n";
         cout << "Book Id :- " << bookId << "\n";
         cout << "Author's Name :- " << author << "\n";
+        cout << "Publisher's Name :- " << publisher << "\n";
     }
 };
 
@@ -299,7 +303,10 @@ public:
     int searchBookById(int id) {
         for(int i = 0; i <= total; i++) {
             if(arr[i].getId() == id && arr[i].getCount() > 0)
+            {
+                cout << "Found !!";
                 return 2;
+            }
             else if(arr[i].getId() == id && arr[i].getCount() == 0)
                 return 1;
         }
@@ -350,6 +357,11 @@ public:
     char getTransactionType() { //method to return the transaction type
         return trType;
     }
+    //function to set the transactiontype to null so that a kind of 
+    //logical deletion fo the previous issue transaction takes place 
+    void setTransactionNull() { //defining the method
+        trType = '\0';
+    }
 };  
 
 //designing the class TRNSACTIONLIST to support the transactions
@@ -389,27 +401,29 @@ public:
                         int bid;
                         cout << "Enter the book id :- ";
                         cin >> bid;
-                        if(obj3.searchBookById(id) == 2){
+                        if(obj3.searchBookById(bid) == 2){
                             cout << "Book existing and can be issued by the student !\n";
                             //take the last serial number from the list of books
                             char c;
                             cout << "Do you want to proceed (y/n) :- ";
                             cin >> c;
-                            if(c == 'y' || c == 'Y'){
+                            if(c == 'y' || c == 'Y'){ //book exists and is available for issue
                                 int sno = obj3.updateBookStockIssue(bid);
                                 arr[++tcount].getData(id, bid, sno, 'i');
                                 cout << "Book issued successfully !\n";
                             }
                         }
-                        else if(obj3.searchBookById(id) == 1){
+                        else if(obj3.searchBookById(bid) == 1){ //book can be issued later
                             cout << "Book exsiting but OUT OF STOCK !\n";
                             return;
-                        }       
+                        } 
+                        //book doesn't exist      
                         else {
                             cout << "Book not existing !\n";
                             return;
                         }
                     }
+                    //maximum limit exceeded for the student 
                     else { 
                         cout << "Sorry book issue not possible for student !";
                         return;
@@ -432,6 +446,7 @@ public:
                                 cout << "Book issued successfully !\n";
                             }
                         }
+                        //same check is made for the faculty while issueing 
                         else if(obj3.searchBookById(id) == 1){
                             cout << "Book exsiting but OUT OF STOCK !\n";
                             return;
@@ -441,6 +456,7 @@ public:
                             return;
                         }
                     }
+                    //maximum limit exceeded for the faculty
                     else { 
                         cout << "Sorry book issue not possible for faculty !";
                         return;
@@ -457,23 +473,43 @@ public:
             cout << "Enter the sno :- ";
             cin >> sno;
             //check if the triplet is present in the transaction list or not
+            int issueCount = 0, nullCount = 0, lastIdx = -1;
             for(int i = 0; i <= tcount; i++) {
                // cout << arr[i].getBookId() << " " << arr[i].getMemId() << " " << arr[i].getSno() << " " << "\n";
                 if(arr[i].getBookId() == bid && arr[i].getMemId() == mid && arr[i].getSno() == sno && arr[i].getTransactionType() == 'i')
                 {
-                    //record found in the transaction list now perform the return
-                    obj3.updateBookStockReturn(bid, sno);
-                    arr[++tcount].getData(mid, bid, sno, 'r');
-                    cout << "Return Successful !\n";
-                    return;
-                }   
-                else {
+                    //if there is an issue the issue count needs to be incremented and the lastIdx needs to recorded
+                    issueCount++;  
+                    lastIdx = i;  
+                }  
+                else if(arr[i].getBookId() == bid && arr[i].getMemId() == mid && arr[i].getSno() == sno && arr[i].getTransactionType() == '\0'){
+                    //null count refers to the number of times a students has taken a book and returned it 
+                    nullCount++;
+                } 
+            }
+            //issue count > 0, ensures that there is a single issue that    
+            //has not been returned yet
+            if(issueCount > 0) {
+                arr[lastIdx].setTransactionNull();
+                obj3.updateBookStockReturn(bid, sno);
+                arr[++tcount].getData(mid, bid, sno, 'r');
+                cout << "Return Successful !\n";
+                return;
+            }
+            //issuecount == 0 ensures that there is no possible return
+            else if(issueCount == 0){
+                if(nullCount == 0){ //raise a detail mismatch alert
                     cout << "Return Not possible ! detail mismatch alert !\n";
                     return;
                 }
+                else{   //book already returned 
+                    cout << "Book Already Returned !\n";
+                }
             }
+            
         }
-        else{
+        //incase if any other number is selected
+       else{
             cout << "Invalid choice !\n";
             return;
         }
@@ -515,7 +551,7 @@ int main() {
                     break;
             case 10: obj4.makeTransaction(obj1, obj2, obj3);
                     break;
-            case 11: exit(0);
+            default : exit(0);
         }
     }
     return 0;
