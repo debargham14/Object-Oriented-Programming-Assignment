@@ -41,7 +41,7 @@ public:
     //method to diplay all records
     void displayAl(){
         if(count == -1)
-            throw "Student underflow condition \n";
+            throw -1;
         else{
             for(int i = 0; i <= min(count, MAX_SIZE - 1); i++){
                 arr[i].showData();
@@ -49,7 +49,6 @@ public:
         }
     }
 };
-
 int main() {
     //menu driven program to implement the same
     STUDENTLIST obj1;
@@ -69,6 +68,9 @@ int main() {
                 obj1.displayAl();
             }catch(const char* c){
                 cout << c;
+            }
+            catch(int a) {
+                cout << a << "\n";
             }
             break;
             default:
