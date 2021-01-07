@@ -2,7 +2,7 @@
 using namespace std;
 
 //designing the  class employee
-class EMPLOYEE{
+class EMPLOYEE {
 protected:
     static int last;
     int empId;
@@ -27,11 +27,11 @@ public:
 int EMPLOYEE::last = 0;
 
 //designing the class permanent employee to do the same
-class PERMANENT:public EMPLOYEE{
+class PERMANENT: public EMPLOYEE {
 protected:
     double salary;
 public:
-    void calSalary() {  //defining the method calculate salary 
+    void calSalary() {  //defining the method calculate salary
         salary = basePay + (0.3 * basePay) + (0.8 * basePay);
     }
     void showData() { //defining the method calculate data
@@ -43,7 +43,7 @@ public:
     }
 };
 
-class CONTRACTUAL:public EMPLOYEE{
+class CONTRACTUAL: public EMPLOYEE {
 protected:
     double salary;
     double allowance;
@@ -53,7 +53,7 @@ public:
         cin >> allowance;
         salary = basePay + allowance;
     }
-    void showData() {   
+    void showData() {
         calSalary();    //call made to the function calsalary before displaying it
         cout << "Name Of the employee :- " << name << "\n";
         cout << "Employee Id :- " << empId << "\n";
@@ -62,15 +62,15 @@ public:
     }
 };
 
-int main(){
+int main() {
     EMPLOYEE *ptr;
     PERMANENT obj1;
     CONTRACTUAL obj2;
     ptr = &obj1;    //enabling dynamic linking or runtime polymorphism
-    ptr->getData(); 
+    ptr->getData();
     ptr->showData();
 
-    ptr = &obj2;    //enabling dynamic linking 
+    ptr = &obj2;    //enabling dynamic linking
     ptr->getData();
     ptr->showData();
     return 0;

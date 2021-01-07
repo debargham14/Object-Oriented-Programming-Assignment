@@ -17,7 +17,7 @@ public:
             arr = new T[s];
         size = s;
     }   
-    //deisigning the mehtof to get the array elements
+    //deisigning the mehtod to get the array elements
     void getData() {
         cout << "Enter " << size << " elements :- ";
         for(int i = 0; i < size; i++)   cin >> arr[i];

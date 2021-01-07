@@ -1,4 +1,4 @@
-Object - Oriented - Programming - AssignmentObject - Oriented - Programming - Assignment#include<iostream>
+#include<iostream>
 #define MAX_SIZE 100
 using namespace std;
 typedef long long ll; //providing an alias name
